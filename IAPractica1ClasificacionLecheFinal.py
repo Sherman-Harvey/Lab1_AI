@@ -503,10 +503,8 @@ print(matriz)
 #==========================================================
 
 # Una vez evaluado el modelo, se crea una NUEVA red.
-#
 # Esta nueva red utiliza todas las 83 muestras unicas.
 # Los hiperparametros ya fueron seleccionados anteriormente.
-#
 # Se utiliza como cantidad de epocas la mejor epoca
 # encontrada mediante Validation.
 
