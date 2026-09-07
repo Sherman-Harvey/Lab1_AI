@@ -104,7 +104,43 @@ print(len(dataset_unico))
 print("\nDistribucion de Grade en las muestras unicas:")
 print(dataset_unico["Grade"].value_counts().sort_index())
 
+#==========================================================
+# ANALISIS DE VALORES ATIPICOS MEDIANTE IQR
+#==========================================================
 
+columnas_continuas = [
+    "pH",
+    "Temprature",
+    "Colour"
+]
+
+Q1 = dataset_unico[columnas_continuas].quantile(0.25)
+Q3 = dataset_unico[columnas_continuas].quantile(0.75)
+
+IQR = Q3 - Q1
+
+limite_inferior = Q1 - 1.5 * IQR
+limite_superior = Q3 + 1.5 * IQR
+
+print("\n======================================")
+print("ANALISIS DE VALORES ATIPICOS")
+print("======================================")
+
+for columna in columnas_continuas:
+
+    outliers = dataset_unico[
+        (dataset_unico[columna] < limite_inferior[columna]) |
+        (dataset_unico[columna] > limite_superior[columna])
+    ]
+
+    print("\nVariable:", columna)
+    print("Q1:", Q1[columna])
+    print("Q3:", Q3[columna])
+    print("IQR:", IQR[columna])
+    print("Limite inferior:", limite_inferior[columna])
+    print("Limite superior:", limite_superior[columna])
+    print("Cantidad de valores atipicos:", len(outliers))
+    
 #==========================================================
 # DIVISION TRAIN / VALIDATION / TEST
 #==========================================================
